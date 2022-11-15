@@ -1,0 +1,17 @@
+using Unity.Entities;
+
+// Authoring MonoBehaviours are regular GameObject components.
+// They constitute the inputs for the baking systems which generates ECS data.
+class #SCRIPTNAME# : UnityEngine.MonoBehaviour
+{
+#NOTRIM#
+}
+
+// Bakers convert authoring MonoBehaviours into entities and components.
+class #SCRIPTNAME_SUB_AUTHORING#Baker : Baker<#SCRIPTNAME#>
+{
+    public override void Bake(#SCRIPTNAME# authoring)
+    {
+        AddComponent<#SCRIPTNAME_SUB_AUTHORING#>();
+    }
+}
