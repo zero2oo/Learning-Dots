@@ -8,10 +8,10 @@ class #SCRIPTNAME# : UnityEngine.MonoBehaviour
 }
 
 // Bakers convert authoring MonoBehaviours into entities and components.
-class #SCRIPTNAME_SUB_AUTHORING#Baker : Baker<#SCRIPTNAME#>
+class |#SCRIPTNAME# replace_Authoring_|Baker : Baker<#SCRIPTNAME#>
 {
     public override void Bake(#SCRIPTNAME# authoring)
     {
-        AddComponent<#SCRIPTNAME_SUB_AUTHORING#>();
+        AddComponent<|#SCRIPTNAME# replace_Authoring_|>();
     }
 }

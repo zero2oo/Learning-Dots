@@ -4,7 +4,6 @@ using Unity.Entities;
 // They constitute the inputs for the baking systems which generates ECS data.
 class TankAuthoring : UnityEngine.MonoBehaviour
 {
-
 }
 
 // Bakers convert authoring MonoBehaviours into entities and components.

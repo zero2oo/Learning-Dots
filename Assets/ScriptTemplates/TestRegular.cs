@@ -1,28 +1,29 @@
-using UnityEditor;
-using System.IO;
+using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class AdditionPlaceHolders : AssetModificationProcessor
+public class TestRegular : MonoBehaviour
 {
+    public string testStr;
+
     ///Example:
     //String:  <HarryPotter replace_Potter_Kane lower_0>
     //Result:   harryKane
     private const string Replace = "replace_"; 
     private const string LowerCase = "lower_";
     private const string Sub = "sub_";
-
-    public static void OnWillCreateAsset(string metaFilePath)
+    
+    public void Test()
     {
-        var fileName = Path.GetFileNameWithoutExtension(metaFilePath);
-        if (!fileName.EndsWith(".cs"))
-            return;
+        var content = testStr;
+        var matches = Regex.Matches(content, "<(.+?)>");
 
-        var actualFilePath = $"{Path.GetDirectoryName(metaFilePath)}{Path.DirectorySeparatorChar}{fileName}";
-        var content = File.ReadAllText(actualFilePath);
-        
-        var matches = Regex.Matches(content, "|(.+?)|");
-        if (matches.Count == 0) return;
+        if (matches.Count == 0)
+        {
+            Debug.LogError("not matched");
+            return;
+        }
         
         foreach (Match match in matches)
         {
@@ -39,13 +40,11 @@ public class AdditionPlaceHolders : AssetModificationProcessor
             }
 
             content = content.Replace(match.Value, listStr[0]);
+            Debug.Log(content);
         }
-        
-        File.WriteAllText(actualFilePath, content);
-        AssetDatabase.Refresh();
     }
-    
-    private static void Modify(ref string content, string expression)
+
+    private void Modify(ref string content, string expression)
     {
         if (expression.Contains(Replace))
         {
