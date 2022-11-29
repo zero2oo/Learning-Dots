@@ -6,11 +6,10 @@ using UnityEngine;
 public class AdditionPlaceHolders : AssetModificationProcessor
 {
     ///Example:
-    //String:  <HarryPotter replace_Potter_Kane lower_0>
+    //String:  _<HarryPotter replace-Potter-Kane lower-0>_
     //Result:   harryKane
-    private const string Replace = "replace_"; 
-    private const string LowerCase = "lower_";
-    private const string Sub = "sub_";
+    private const string Replace = "replace-"; 
+    private const string LowerCase = "lower-";
 
     public static void OnWillCreateAsset(string metaFilePath)
     {
@@ -21,12 +20,13 @@ public class AdditionPlaceHolders : AssetModificationProcessor
         var actualFilePath = $"{Path.GetDirectoryName(metaFilePath)}{Path.DirectorySeparatorChar}{fileName}";
         var content = File.ReadAllText(actualFilePath);
         
-        var matches = Regex.Matches(content, "|(.+?)|");
+        var matches = Regex.Matches(content, "_<(.+?)>_");
         if (matches.Count == 0) return;
         
         foreach (Match match in matches)
         {
-            var listStr = match.Value.Trim('<', '>').Split(' ');
+            var listStr = match.Value.TrimStart('_','<').TrimEnd('_', '>').Split(' ');
+            // var listStr = match.Value.Replace("_<", "").Replace(">_", "").Split(' ');
             if (listStr.Length < 2)
             {
                 Debug.LogError("Wrong format!");
@@ -49,7 +49,7 @@ public class AdditionPlaceHolders : AssetModificationProcessor
     {
         if (expression.Contains(Replace))
         {
-            var listStr = expression.Split("_");
+            var listStr = expression.Split("-");
             if (listStr.Length != 3)
             {
                 Debug.LogError("Wrong format!");
@@ -59,10 +59,10 @@ public class AdditionPlaceHolders : AssetModificationProcessor
             content = content.Replace(listStr[1], listStr[2]);
             return;
         }
-        
-        if (expression.Contains(LowerCase))
+
+        if (!expression.Contains(LowerCase)) return;
         {
-            var listStr = expression.Split("_");
+            var listStr = expression.Split("-");
             if (listStr.Length != 2)  {
                 Debug.LogError("Wrong format!");
                 return;
@@ -75,22 +75,8 @@ public class AdditionPlaceHolders : AssetModificationProcessor
             }
             else
             {
-                Debug.LogError("Following 'lower_' must be a number!");
+                Debug.LogError("Following 'lower-' must be a number!");
             }
-            // return;
         }
-
-        // if (expression.Contains(Sub))
-        // {
-        //     var listStr = expression.Split("_");
-        //     if (listStr.Length != 2)
-        //     {
-        //         Debug.LogError("Wrong format!");
-        //         return;
-        //     }
-        //     
-        //     content = content.Replace(listStr[1], listStr[2]);
-        // }
-
     }
 }

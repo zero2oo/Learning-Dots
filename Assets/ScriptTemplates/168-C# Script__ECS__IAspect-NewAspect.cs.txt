@@ -1,12 +1,12 @@
 using Unity.Entities;
 
-// Instead of directly accessing the Turret component, we are creating an aspect.
+// Instead of directly accessing the _<#SCRIPTNAME# replace-Aspect->_ component, we are creating an aspect.
 // Aspects allows you to provide a customized API for accessing your components.
 readonly partial struct #SCRIPTNAME# : IAspect
 {
-    // This reference provides read only access to the Turret component.
+    // This reference provides read only access to the _<#SCRIPTNAME# replace-Aspect->_ component.
     // Trying to use ValueRW (instead of ValueRO) on a read-only reference is an error.
-    readonly RefRO<#SCRIPTNAME_SUB_ASPECT#> _Turret;
+    readonly RefRO<_<#SCRIPTNAME# replace-Aspect->_> __<#SCRIPTNAME# replace-Aspect- lower-0>_;
 }
 
 

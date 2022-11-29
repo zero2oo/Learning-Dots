@@ -4,7 +4,7 @@ using Unity.Transforms;
 
 // Contrarily to ISystem, SystemBase systems are classes.
 // They are not Burst compiled, and can use managed code.
-partial class TankMovementSystem : SystemBase
+partial class #SCRIPTNAME# : SystemBase
 {
     protected override void OnUpdate()
     {
