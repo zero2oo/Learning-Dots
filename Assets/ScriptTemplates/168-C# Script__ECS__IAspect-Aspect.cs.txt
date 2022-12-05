@@ -6,7 +6,7 @@ readonly partial struct #SCRIPTNAME# : IAspect
 {
     // This reference provides read only access to the _<#SCRIPTNAME# replace-Aspect->_ component.
     // Trying to use ValueRW (instead of ValueRO) on a read-only reference is an error.
-    readonly RefRO<_<#SCRIPTNAME# replace-Aspect->_> __<#SCRIPTNAME# replace-Aspect- lower-0>_;
+    private readonly RefRO<_<#SCRIPTNAME# replace-Aspect->_> __<#SCRIPTNAME# replace-Aspect- lower-0>_;
 }
 
 
